@@ -1,12 +1,14 @@
+import sys
+from stats import count_words
+
+if len(sys.argv) != 2:
+    print("Usage: python3 main.py <path_to_book>")
+    sys.exit(1)
+
 def text_file():
-    with open('./books/frankenstein.txt') as f:
+    with open(sys.argv[1]) as f:
         file_content = f.read()
     return file_content
-
-# funtion that count the number of works in a text
-def count_words(text):
-    words = text.split()
-    return len(words)
 
 # function that count the number of characters in a text in a dictionary -> {a: 1, b: 2, c: 3}
 # consider a to z only
@@ -24,11 +26,14 @@ def main ():
     # clean the terminal
     print('\033c')
     text = text_file()
-    print('--- Begin report of books/frankenstein.txt ---')
-    print(f'Number of words: {count_words(text)}\n')
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {sys.argv[1]}")
+    print("----------- Word Count ----------")
+    print(f'Found {count_words(text)} total words')
+    print("----------- Character Count -----")
     for key, value in count_characters(text).items():
-        print(f'{key}: character was found {value} times')
-    print('--- End report ---')
+        print(f'{key}: {value}')
+    print('============= END ===============')
 
 if __name__ == '__main__':
     main()
